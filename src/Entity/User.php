@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -31,10 +33,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?bool $isActive = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $created_at = null;
+    private ?\DateTimeImmutable $created_at;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $connected_at = null;
+    private ?\DateTimeImmutable $connected_at;
 
     #[ORM\Column(length: 128)]
     private ?string $firstName = null;
@@ -43,7 +45,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $lastName = null;
 
     #[ORM\OneToMany(targetEntity: Portfolio::class, mappedBy: 'user')]
-    private array $portfolios = [];
+    private ?Collection $portfolios;
+
+    #[ORM\Column(length: 255)]
+    private ?string $username = null;
+
+    public function __construct()
+    {
+        $this->portfolios = new ArrayCollection();
+        $this->connected_at = new \DateTimeImmutable();
+        $this->created_at = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
@@ -174,4 +186,62 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): static
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    public function getPortfolios(): array
+    {
+        return $this->portfolios;
+    }
+
+    public function setPortfolios(array $portfolios): static
+    {
+        $this->portfolios = $portfolios;
+
+        return $this;
+    }
+
+    public function addPortfolio(Portfolio $portfolio): static
+    {
+        $this->portfolios->add($portfolio);
+        $portfolio->setUser($this);
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getUsername();
+    }
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'email' => $this->getEmail(),
+            'roles' => $this->getRoles(),
+            'isActive' => $this->isIsActive(),
+            'createdAt' => $this->getCreatedAt(),
+            'connectedAt' => $this->getConnectedAt(),
+            'firstName' => $this->getFirstName(),
+            'lastName' => $this->getLastName(),
+            'portfolios' => $this->getPortfolios(),
+            'username' => $this->getUsername(),
+        ];
+    }
+
+    public function _toString(): string
+    {
+        return $this->getUsername();
+    }
+
 }

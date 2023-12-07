@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PortfolioRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -18,17 +20,22 @@ class Portfolio
     private ?string $name = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $created_at = null;
+    private ?\DateTimeImmutable $created_at;
 
     #[ORM\Column(length: 64)]
     private Status $status = Status::ACTIVE;
 
-    #[ORM\Column]
     #[ORM\OneToMany(targetEntity: Asset::class, mappedBy: 'portfolio')]
-    private array $assets = [];
+    private ?Collection $assets;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'portfolios')]
     private ?User $user = null;
+
+    public function __construct()
+    {
+        $this->assets = new ArrayCollection();
+        $this->created_at = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
@@ -79,6 +86,26 @@ class Portfolio
     public function setAssets(array $assets): static
     {
         $this->assets = $assets;
+
+        return $this;
+    }
+
+    public function addAsset(Asset $asset): static
+    {
+        $this->assets->add($asset);
+        $asset->setPortfolio($this);
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

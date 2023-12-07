@@ -80,4 +80,21 @@ class Asset
 
         return $this;
     }
+
+    public function getPortfolio(): ?Portfolio
+    {
+        return $this->portfolio;
+    }
+
+    public function setPortfolio(?Portfolio $portfolio): static
+    {
+        $this->portfolio = $portfolio;
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
+    }
 }

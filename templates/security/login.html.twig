@@ -1,0 +1,41 @@
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}
+
+{% block body %}
+<div class="login-container">
+    <form method="post" class="login-container__form">
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        {% if app.user %}
+            <div class="mb-3">
+                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        {% endif %}
+
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <div>
+            <label class="login-container__form__title" for="inputEmail">Email</label>
+            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="login-container__form__input" autocomplete="email" required autofocus>
+            <label class="login-container__form__title" for="inputPassword">Password</label>
+            <input type="password" name="password" id="inputPassword" class="login-container__form__input" autocomplete="current-password" required>
+
+            <input type="hidden" name="_csrf_token"
+                value="{{ csrf_token('authenticate') }}"
+            >
+
+            <button class="login-container__form__button" type="submit">
+                Sign in
+            </button>
+            <a href="#" class="login-container__form__link">Register</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

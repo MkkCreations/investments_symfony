@@ -21,7 +21,12 @@ class Balance
     private int $amount = 0;
 
     #[ORM\Column]
-    private ?string $currency = null;
+    private string $currency;
+
+    public function __construct()
+    {
+        $this->currency = Currency::EUR->value;
+    }
 
     public function getId(): ?int
     {

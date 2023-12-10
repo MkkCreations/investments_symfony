@@ -18,5 +18,39 @@
             <p> {{ portfolio.name }} </p>
         {% endfor %}
     {% endif %}
+
+    <div
+          className="svg-pi-wrapper"
+          style="width: 150px; height: 150px;"
+        >
+          <svg
+            className="svg-pi" 
+            style="width: 150px; height: 150px;"
+          >
+            <circle
+              className="svg-pi-track"
+              cx="50"
+              cy="50"
+              fill="transparent"
+              r="50"
+              stroke="#44444444"
+              strokeWidth="10"
+            />
+            <circle
+              className="svg-pi-indicator svg-pi-indicator--spinner"
+              style="animationDuration: 1000;"
+              cx="50"
+              cy="50"
+              fill="transparent"
+              r="25"
+              stroke="#07c"
+              strokeWidth="10"
+              strokeDasharray="150"
+              strokeDashoffset="60"
+              strokeLinecap="round"
+            />
+          </svg>
+  
+        </div>
 </div>
 {% endblock %}

@@ -1,0 +1,151 @@
+.balance-container {
+    width: 90%;
+    & > h1 {
+        text-align: center;
+        margin: 20px 0;
+    }
+
+    &__nav {
+        width: 100%;
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 40px;
+        background-color: aliceblue;
+        padding: 10px;
+        & > li {
+            & > a {
+                text-decoration: none;
+                color: rgb(0, 0, 0);
+                padding: 10px;
+                border-radius: 5px;
+                &:hover {
+                    background-color: rgb(0, 0, 0);
+                    color: rgb(255, 255, 255);
+                }
+            }
+            & > button {
+                width: 40px;
+                height: 40px;
+                background-color: rgb(35, 137, 14);
+                color: rgb(255, 255, 255);
+                border-radius: 5px;
+                border: none;
+                font-size: 2em;
+                cursor: pointer;
+                &:hover {
+                    opacity: 0.5;
+                }
+            }
+        }
+    }
+    & > table {
+        border-collapse: collapse;
+        width: 80%;
+        margin: 0 auto;
+        & > thead {
+            background-color: rgb(0, 0, 0);
+            color: rgb(255, 255, 255);
+            & > tr {
+                & > th {
+                    padding: 10px;
+                }
+            }
+        }
+        & > tbody {
+            background-color: rgb(255, 255, 255);
+            color: rgb(0, 0, 0);
+            & > tr {
+                & > td {
+                    padding: 10px;
+                }
+            }
+        }
+    }
+    &__modal {
+        display: none;
+        backdrop-filter: blur(5px);
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 4;
+
+        &-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            width: 50vw;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            background-color: rgb(255, 255, 255);
+            z-index: 5;
+            border-radius: 10px;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+
+            &__close {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                align-self: flex-end;
+                width: 20px;
+                height: 20px;
+                background-color: rgb(132, 8, 8);
+                color: rgb(255, 255, 255);
+                border-radius: 3px;
+                border: none;
+                font-size: 1em;
+                margin: 10px;
+                cursor: pointer;
+                &:hover {
+                    opacity: 0.5;
+                }
+            }
+
+            &__form {
+                width: 80%;
+                flex: 3;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                align-items: center;
+                margin: 20px 0;
+                & > div {
+                    width: 100%;
+                    & > input {
+                        width: 100%;
+                        height: 40px;
+                        border-radius: 3px;
+                        border: 1px solid rgb(75, 75, 75);
+                        padding: 10px;
+                    }
+                    & > p{
+                        color: rgb(114, 114, 114);
+                        font-size: 0.8em;
+                    }
+                }
+                & > button {
+                    align-self: flex-end;
+                    border: 1px solid rgba(213, 213, 213, 0.911);
+                    color: rgb(27, 27, 27);
+                    border-radius: 3px;
+                    padding: 8px 14px;
+                    margin-top: 10px;
+                    cursor: pointer;
+                    &:hover {
+                        background-color: rgb(255, 255, 255);
+                        color: rgb(0, 0, 0);
+                    }
+                }
+            }
+        }
+    }
+}
+

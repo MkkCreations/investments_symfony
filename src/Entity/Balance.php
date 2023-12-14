@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BalanceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: BalanceRepository::class)]
@@ -23,9 +25,14 @@ class Balance
     #[ORM\Column]
     private string $currency;
 
+    #[ORM\OneToMany(mappedBy: 'balance', targetEntity: LogBalance::class, orphanRemoval: true)]
+    private Collection $logBalances;
+
     public function __construct()
     {
         $this->currency = Currency::EUR->value;
+        $this->addedAt = new \DateTimeImmutable();
+        $this->logBalances = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -70,6 +77,36 @@ class Balance
     public function setCurrency(Currency $currency): static
     {
         $this->currency = $currency->value;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, LogBalance>
+     */
+    public function getLogBalances(): Collection
+    {
+        return $this->logBalances;
+    }
+
+    public function addLogBalance(LogBalance $logBalance): static
+    {
+        if (!$this->logBalances->contains($logBalance)) {
+            $this->logBalances->add($logBalance);
+            $logBalance->setBalance($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLogBalance(LogBalance $logBalance): static
+    {
+        if ($this->logBalances->removeElement($logBalance)) {
+            // set the owning side to null (unless already changed)
+            if ($logBalance->getBalance() === $this) {
+                $logBalance->setBalance(null);
+            }
+        }
 
         return $this;
     }

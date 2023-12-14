@@ -43,7 +43,7 @@
                     {% for portfolio in app.user.portfolios %}
                         <a {# href="{{ path('portfolio', {'id': portfolio.id}) }}" #} class="main-container__lateral__item__portfolio">{{portfolio.name}}</a>
                     {% endfor %}
-                <a href="#" class="main-container__lateral__item">Balance</a>
+                <a href="{{ path('app_balance') }}" class="main-container__lateral__item">Balance</a>
                 <a href="{{ path('app_logout') }}" class="main-container__lateral__logout">Logout</a>
             </div>
             <main class="main-container__main">

@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BalanceController!{% endblock %}
+
+{% block body %}
+<div class="balance-container">
+    <h1>Balance</h1>
+
+    <ul class="balance-container__nav">
+        <li>
+            <a href="{{ path('app_dashboard') }}">Back to Dashboard</a>
+        </li>
+        <li>
+            <button id="buttonBalance">+</button>
+        </li>
+    </ul>
+
+    <div id="modalBalance" class="balance-container__modal">
+        <div class="balance-container__modal-container">
+            <div id="closeModalBalance" class="balance-container__modal-container__close">X</div>
+            <form class="balance-container__modal-container__form">
+                <div class="form-group">
+                    <input type="number" class="form-control" id="amount" placeholder="Enter amount" required min="100">
+                    <p>Minimum amount is 100</p>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Currency</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for balance in balances %}
+            <tr>
+                <td>{{ balance.addedAt|date('Y-m-d') }}</td>
+                <td>{{ balance.amount }}</td>
+                <td>{{ app.user.balance.currency }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+</div>
+{% endblock %}

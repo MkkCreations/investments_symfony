@@ -38,7 +38,7 @@
             <div class="main-container__lateral">
                 <p class="main-container__lateral__user">Welcome <b>{{app.user.username}}</b></p>
                 <a href="#" class="main-container__lateral__item">Home</a>
-                <a href="#" class="main-container__lateral__item">Dashboard</a>
+                <a href="{{ path('app_dashboard') }}" class="main-container__lateral__item">Dashboard</a>
                 <a href="#" class="main-container__lateral__item">Portfolios</a>
                     {% for portfolio in app.user.portfolios %}
                         <a {# href="{{ path('portfolio', {'id': portfolio.id}) }}" #} class="main-container__lateral__item__portfolio">{{portfolio.name}}</a>

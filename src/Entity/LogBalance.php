@@ -23,6 +23,13 @@ class LogBalance
     #[ORM\Column]
     private ?int $amount = null;
 
+    public function __construct(Balance $balance, int $amount)
+    {
+        $this->balance = $balance;
+        $this->amount = $amount;
+        $this->addedAt = new \DateTimeImmutable();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

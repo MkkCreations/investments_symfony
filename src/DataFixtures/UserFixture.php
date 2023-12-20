@@ -33,9 +33,10 @@ class UserFixture extends Fixture
         $user->setLastName('Admin');
         $user->addPortfolio($this->getReference(PortfolioFixture::PORTFOLIO_REFERENCE));
         $user->setBalance($this->getReference(BalanceFixture::BALANCE_REFERENCE));
-
+        
         $manager->persist($user);
         $this->addReference(self::USER_REFERENCE, $user);
+        $this->getReference(BalanceFixture::BALANCE_REFERENCE)->setUser($user);
         
         $manager->flush();
     }

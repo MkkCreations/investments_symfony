@@ -23,14 +23,14 @@ class Balance
     private int $amount = 0;
 
     #[ORM\Column]
-    private string $currency;
+    private Currency $currency;
 
     #[ORM\OneToMany(mappedBy: 'balance', targetEntity: LogBalance::class, orphanRemoval: true)]
     private Collection $logBalances;
 
     public function __construct()
     {
-        $this->currency = Currency::EUR->value;
+        $this->currency = Currency::EUR;
         $this->addedAt = new \DateTimeImmutable();
         $this->logBalances = new ArrayCollection();
     }
@@ -64,19 +64,14 @@ class Balance
         return $this;
     }
 
-    public function getCurrency(): string
+    public function getCurrency(): Currency
     {
-        $currency = $this->getCurrency();
-        if ($currency === null) {
-            $currency = Currency::EUR->value;
-        }
-
         return $this->currency;
     }
 
     public function setCurrency(Currency $currency): static
     {
-        $this->currency = $currency->value;
+        $this->currency = $currency;
 
         return $this;
     }

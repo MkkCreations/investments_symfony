@@ -1,5 +1,0 @@
-{
-    "php.version": "8.1",
-    "php.validate.enable": true,
-    "php.validate.executablePath": "/usr/bin/php"
-}

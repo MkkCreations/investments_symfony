@@ -18,9 +18,10 @@ This project is a dashboard for investments. It is a simple project to learn Sym
 
 ### To install the project, run the following command:
 
-<code>
+```bash
     composer install
-</code>
+    npm install
+```
 
 ## 
 
@@ -30,9 +31,9 @@ This project is a dashboard for investments. It is a simple project to learn Sym
 
 With this command, the database will be started in the background.
 
-<code>
+```bash
     docker compose up -d database
-</code>
+```
 
 ## Configuration
 
@@ -49,9 +50,9 @@ The database is configured with the following environment variables:
 
 ### To add the fixtures, run the following command:
 
-<code>
+```
     php bin/console doctrine:fixtures:load
-</code>
+``````
 
 ##
 

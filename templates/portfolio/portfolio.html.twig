@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PortfolioController!{% endblock %}
+
+
+{# {% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('portfolio') }}
+{% endblock %} #}
+
+{% block body %}
+<div class="portfolio-container">
+    <p>{{ portfolio.name }}</p>
+</div>
+{% endblock %}

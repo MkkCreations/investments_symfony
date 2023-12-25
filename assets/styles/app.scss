@@ -2,6 +2,7 @@
 @import './login.scss';
 @import './register.scss';
 @import './balance.scss';
+@import './portfolios.scss';
 
 * {
     box-sizing: border-box;
@@ -12,4 +13,32 @@
 
 body {
     background-color: rgb(235, 235, 235);
+}
+
+.btn-primary {
+    background-color: rgba(190, 190, 190, 0.854);
+    color: rgb(58, 58, 58);
+    border-radius: 5px;
+    border: 1px solid rgb(225, 225, 225);
+    font-size: 0.8em;
+    padding: 5px 10px;
+    text-decoration: none;
+
+    cursor: pointer;
+    &:hover {
+        opacity: 0.5;
+    }
+}
+
+.btn-secondary {
+    color: rgb(101, 101, 101);
+    font-size: 0.8em;
+    padding: 5px 10px;
+    border: none;
+    background-color: transparent;
+
+    cursor: pointer;
+    &:hover {
+        color: rgb(29, 29, 29);
+    }
 }

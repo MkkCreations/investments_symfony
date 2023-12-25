@@ -1,4 +1,4 @@
-.balance-container {
+.portfolios-container {
     width: 90%;
     & > h1 {
         text-align: center;
@@ -39,42 +39,69 @@
             }
         }
     }
-    & > table {
-        border-collapse: collapse;
-        width: 80%;
-        margin: 0 auto;
-        & > thead {
-            background-color: rgb(0, 0, 0);
-            color: rgb(255, 255, 255);
-            & > tr {
-                & > th {
-                    padding: 10px;
+    &__list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        background-color: rgb(244, 249, 253);
+        padding: 10px;
+        border-radius: 5px;
+
+        &__item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 10px;
+            border: 3px solid rgb(214, 213, 213);
+            border-radius: 8px;
+            background-color: #ebebeb;
+
+            &-title {
+                font-size: 1.2em;
+                font-weight: bold;
+                flex: 3;
+            }
+            &-text {
+                font-size: 0.8em;
+                color: rgb(161, 157, 157);
+                flex: 3;
+            }
+            &-btns {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex: 1;
+                
+            }
+            &-btn-primary, &-btn-secondary {
+                text-decoration: none;
+                background-color: rgb(35, 137, 14);
+                color: rgb(255, 255, 255);
+                border-radius: 5px;
+                border: none;
+                font-size: 0.8em;
+                padding: 5px 10px;
+                
+                cursor: pointer;
+                &:hover {
+                    opacity: 0.5;
                 }
             }
-        }
-        & > tbody {
-            background-color: rgb(255, 255, 255);
-            color: rgb(0, 0, 0);
-            & > tr {
-                & > td {
-                    padding: 10px;
-                    text-align: center;
-                }
+            &-btn-secondary {
+                background-color: rgb(132, 8, 8);
+                margin-left: 10px;
+            }
+            &-modal {
 
-                & > td:nth-child(2) {
-                    color: rgb(35, 137, 14);
-                }
+            }
 
-                & > td:nth-child(3) {
-                    color: rgb(150, 130, 38);
-                }
-
-                &:nth-child(odd) {
-                    background-color: rgb(240, 240, 240);
-                }
+            &:hover {
+                background-color: rgb(255, 255, 255);
             }
         }
     }
+
     &__modal {
         display: none;
         backdrop-filter: blur(5px);
@@ -123,12 +150,12 @@
 
             &__form {
                 width: 80%;
-                flex: 3;
+                flex: 2;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-around;
                 align-items: center;
-                margin: 20px 0;
+                margin: 10px 0;
                 & > div {
                     width: 100%;
                     & > input {
@@ -148,21 +175,16 @@
                         margin: 5px;
                     }
                 }
-                & > button {
-                    align-self: flex-end;
-                    border: 1px solid rgba(213, 213, 213, 0.911);
-                    color: rgb(27, 27, 27);
-                    border-radius: 3px;
-                    padding: 8px 14px;
-                    margin-top: 10px;
-                    cursor: pointer;
-                    &:hover {
-                        background-color: rgb(255, 255, 255);
-                        color: rgb(0, 0, 0);
-                    }
-                }
+            }
+            &__btns {
+                width: 80%;
+                flex: 1;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                gap: 10px;
+                padding: 20px 10px;
             }
         }
     }
 }
-

@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PortfolioController!{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('portfolios') }}
+{% endblock %}
+
+{% block body %}
+<div class="portfolios-container">
+    <h1>Portfolios</h1>
+
+    <ul class="portfolios-container__nav">
+        <li>
+            <a href="{{ path('app_dashboard') }}">Back to Dashboard</a>
+        </li>
+        <li>
+            <button id="addPortfolio">+</button>
+        </li>
+    </ul>
+
+     <div id="modalPortfolio" class="portfolios-container__modal">
+        <div class="portfolios-container__modal-container">
+            <div id="closeModalPortfolio" class="portfolios-container__modal-container__close">X</div>
+            <form class="portfolios-container__modal-container__form" method="post" >
+                <div class="form-group">
+                    <input type="text" class="form-control" name="name" id="name" placeholder="Enter portfolio's name" required>
+                </div>
+                <div class="portfolios-container__modal-container__btns">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="portfolios-container__list">
+        <h2>Portfolios list</h2>
+        {% for portfolio in app.user.portfolios %}
+            <div class="portfolios-container__list__item">
+                <h5 class="portfolios-container__list__item-title">{{ portfolio.name }}</h5>
+                <p class="portfolios-container__list__item-text">{{ portfolio.createdAt|date('d-m-Y H:m') }}</p>
+                <div class="portfolios-container__list__item-btns">
+                    <a href="{{ path('app_portfolio_show', {id: portfolio.id}) }}" class="portfolios-container__list__item-btn-primary">Show</a>
+                    <button name="deletePortfolio" for="portfolio{{portfolio.id}}" class="portfolios-container__list__item-btn-secondary">Delete</button>
+                </div>
+
+                <div name="modalDeletePortfolio" id="portfolio{{portfolio.id}}" class="portfolios-container__modal">
+                    <div class="portfolios-container__modal-container">
+                        <div class="portfolios-container__modal-container__form">
+                            <h3>Delete portfolio {{ portfolio.name }}</h3>
+                            <p>Are you sure you want to delete this portfolio ?</p>
+                        </div>
+                        <div class="portfolios-container__modal-container__btns">
+                            <button name="closeModalDeletePortfolio" for="portfolio{{portfolio.id}}" class="btn-secondary">Cancel</button>
+                            <a href="{{ path('app_portfolio_delete', {id: portfolio.id}) }}" class="btn-primary">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <p>No portfolios found.</p>
+        {% endfor %}
+    </div>
+    
+</div>
+{% endblock %}

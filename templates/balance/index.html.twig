@@ -1,6 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello BalanceController!{% endblock %}
+{% block title %}Balance{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('balance') }}
+{% endblock %}
 
 {% block body %}
 <div class="balance-container">
@@ -11,7 +16,7 @@
             <a href="{{ path('app_dashboard') }}">Back to Dashboard</a>
         </li>
         <li>
-            <button id="buttonBalance">+</button>
+            <button id="addBalance">+</button>
         </li>
     </ul>
 
@@ -23,7 +28,9 @@
                     <input type="number" class="form-control" name="amount" id="amount" placeholder="Enter amount" required min="100">
                     <p>Minimum amount is 100</p>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="balance-container__modal-container__btns">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
             </form>
         </div>
     </div>
@@ -39,7 +46,7 @@
         <tbody>
         {% for balance in balances %}
             <tr>
-                <td>{{ balance.addedAt|date('Y-m-d') }}</td>
+                <td>{{ balance.addedAt|date('d-m-Y H:i') }}</td>
                 <td>{{ balance.amount }}</td>
                 <td>{{ app.user.balance.currency.value }}</td>
             </tr>

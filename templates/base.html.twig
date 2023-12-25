@@ -39,9 +39,17 @@
                 <p class="main-container__lateral__user">Welcome <b>{{app.user.username}}</b></p>
                 <a href="#" class="main-container__lateral__item">Home</a>
                 <a href="{{ path('app_dashboard') }}" class="main-container__lateral__item">Dashboard</a>
-                <a href="#" class="main-container__lateral__item">Portfolios</a>
+                <a href="{{ path('app_portfolio') }}" class="main-container__lateral__item">Portfolios</a>
                     {% for portfolio in app.user.portfolios %}
-                        <a {# href="{{ path('portfolio', {'id': portfolio.id}) }}" #} class="main-container__lateral__item__portfolio">{{portfolio.name}}</a>
+                        {% if app.request.attributes.get('_route_params')|keys|length > 0 %}
+                            {% if portfolio.id == app.request.attributes.get('_route_params').id %}
+                                <a href="{{ path('app_portfolio_show', {id: portfolio.id}) }}" class="main-container__lateral__item__portfolio main-container__lateral__item__portfolio--active">{{portfolio.name}}</a>
+                            {% else %}
+                                <a href="{{ path('app_portfolio_show', {id: portfolio.id}) }}" class="main-container__lateral__item__portfolio">{{portfolio.name}}</a>
+                            {% endif %}
+                        {% else %}
+                            <a href="{{ path('app_portfolio_show', {id: portfolio.id}) }}" class="main-container__lateral__item__portfolio">{{portfolio.name}}</a>
+                        {% endif %}
                     {% endfor %}
                 <a href="{{ path('app_balance') }}" class="main-container__lateral__item">Balance</a>
                 <a href="{{ path('app_logout') }}" class="main-container__lateral__logout">Logout</a>

@@ -1,15 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PortfolioController!{% endblock %}
+{% block title %}Portfolio{% endblock %}
 
 
-{# {% block javascripts %}
+{% block javascripts %}
     {{ parent() }}
-    {{ encore_entry_script_tags('portfolio') }}
-{% endblock %} #}
+    {#{{ encore_entry_script_tags('portfolio') }}#}
+{% endblock %}
 
 {% block body %}
 <div class="portfolio-container">
-    <p>{{ portfolio.name }}</p>
+    <h1>{{portfolio.name}}</h1>
+
+    <ul class="portfolio-container__nav">
+        <li>
+            <a href="{{ path('app_dashboard') }}">Back to Dashboard</a>
+        </li>
+    </ul>
+
+    <div class="portfolio-container__grphics">
+        <canvas id="myChart">
+        </canvas>
+    </div>
+
+    <div>
+        <h2>Portfolio Details</h2>
+        <ul>
+            <li>Portfolio name: {{portfolio.name}}</li>
+            <li>Portfolio amount: 
+                {% if portfolio.assets|length > 0 %}
+                    {% for asset in portfolio.assets %}
+                        {{asset.amount * asset.boughtPrice|number_format(2, '.', ',')}} <b>{{app.user.balance.currency.value}}</b>
+                    {% endfor %}
+                {% else %}
+                    0.00 €
+                {% endif %}
+            </li>
+            <li>Portfolio creation date: {{portfolio.createdAt|date('m/d/Y')}}</li>
+        </ul>
+    </div>
+
 </div>
 {% endblock %}

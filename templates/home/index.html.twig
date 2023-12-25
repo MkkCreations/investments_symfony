@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+<div class="home-container">
+    <h1>Home</h1>
+
+    <ul class="home-container__nav">
+        <li>
+            <a href="{{ path('app_dashboard') }}">Back to Dashboard</a>
+        </li>
+    </ul>
+
+    <div class="home-container__stocks">
+        {% if data['Information'] %}
+            <center>
+                <h2>No data to display</h2>
+                <br>
+                <p><b>Reason:</b> {{ data['Information'] }}</p>
+                <br>
+                <h4>API used: <a href="https://www.alphavantage.co/">Alpha Vantage</a></h4>
+            </center>
+        {% else %}
+            {% for stock in  data['top_gainers'] %}
+                <div class="home-container__stocks__stock">
+                    <h4>{{ stock['ticker'] }}</h4>
+                    <p>Price: {{ stock['price'] }} {{ app.user.balance.currency.value }}</p>
+                    <p>Change: {{ stock['change_percentage'] }} %</p>
+                    <p>Volume: {{ stock['volume'] }}</p>
+                </div>
+            {% endfor %}
+            {% for stock in  data['top_losers'] %}
+                <div class="home-container__stocks__stock">
+                    <h4>{{ stock['ticker'] }}</h4>
+                    <p>Price: {{ stock['price'] }} {{ app.user.balance.currency.value }}</p>
+                    <p>Change: {{ stock['change_percentage'] }} %</p>
+                    <p>Volume: {{ stock['volume'] }}</p>
+                </div>
+            {% endfor %} 
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

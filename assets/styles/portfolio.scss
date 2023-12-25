@@ -1,0 +1,42 @@
+.portfolio-container {
+    width: 90%;
+    & > h1 {
+        text-align: center;
+        margin: 20px 0;
+    }
+
+    &__nav {
+        width: 100%;
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 40px;
+        background-color: rgb(244, 249, 253);
+        padding: 10px;
+        & > li {
+            & > a {
+                text-decoration: none;
+                color: rgb(0, 0, 0);
+                padding: 10px;
+                border-radius: 5px;
+                &:hover {
+                    color: rgb(22, 123, 174);
+                }
+            }
+            & > button {
+                width: 40px;
+                height: 40px;
+                background-color: rgb(35, 137, 14);
+                color: rgb(255, 255, 255);
+                border-radius: 5px;
+                border: none;
+                font-size: 2em;
+                cursor: pointer;
+                &:hover {
+                    opacity: 0.5;
+                }
+            }
+        }
+    }
+}

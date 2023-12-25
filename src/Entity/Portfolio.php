@@ -78,12 +78,12 @@ class Portfolio
         return $this;
     }
 
-    public function getAssets(): array
+    public function getAssets(): ?Collection
     {
         return $this->assets;
     }
 
-    public function setAssets(array $assets): static
+    public function setAssets(Collection $assets): static
     {
         $this->assets = $assets;
 

@@ -34,8 +34,24 @@ class PortfolioController extends AbstractController
     {
         $id = $req->get('id');
         $portfolio = $em->getRepository(Portfolio::class)->find($id);
+
+        $homeController = new HomeController();
+        $newData = $homeController->getStockData();
+
+
+        $total = 0;
+        $actual = 0;
+
+        $total = array_sum(array_map(fn ($asset) => $total += $asset->getAmount() * $asset->getBoughtPrice(), $portfolio->getAssets()->toArray()));
+
+        $actual = array_sum(array_map(fn ($asset) => $actual += $asset->getAmount() * array_values(array_filter($newData, fn ($stock) => $stock['name'] == $asset->getName()))[0]['price'], $portfolio->getAssets()->toArray()));
+
+
         return $this->render('portfolio/portfolio.html.twig', [
             'portfolio' => $portfolio,
+            'total' => $total,
+            'actual' => $actual,
+            'newData' => $newData,
         ]);
     }
 

@@ -18,30 +18,45 @@
         </li>
     </ul>
 
-    <div class="portfolio-container__grphics">
-        <canvas id="myChart">
-        </canvas>
-    </div>
-
-    <div>
+    <div class="portfolio-container__portfolio-details">
         <h2>Portfolio Details</h2>
-        <ul>
-            <li>Portfolio name: {{portfolio.name}}</li>
-            <li>Portfolio amount: 
-                {% if portfolio.assets|length > 0 %}
-                    {% set total = 0 %}
-                    {% for asset in portfolio.assets %}
-                        {% set total = total + asset.amount * asset.boughtPrice %}
-                    {% endfor %}
-                    {{total|number_format(2, '.', ',')}} <b>{{app.user.balance.currency.value}}</b>
-                {% else %}
-                    0.00 €
-                {% endif %}
-            </li>
-            <li>Portfolio creation date: {{portfolio.createdAt|date('m/d/Y')}}</li>
-        </ul>
+        <table class="portfolio-container__portfolio-details__details">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Total amount</th>
+                    <th>Change</th>
+                    <th>Change %</th>
+                    <th>Actual value</th>
+                    <th>Creation date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{portfolio.name}}</td>
+                    <td>
+                        {{total}} {{app.user.balance.currency.value}}
+                    </td>
+                    <td style="color: {{actual >= total ? "green" : "red"}};">
+                        {% if actual >= total %}
+                            <i class="fas fa-arrow-up"></i>
+                            {{(actual - total)|number_format(2, '.', ',')}}
+                        {% else %}
+                            <i class="fas fa-arrow-down"></i>
+                            {{(total - actual)|number_format(2, '.', ',')}}
+                        {% endif %}
+                        {{app.user.balance.currency.value}}
+                    </td>
+                    <td style="color: {{actual >= total ? "green" : "red"}};">
+                        {{((actual - total) / total * 100)|number_format(2, '.', ',')}} %
+                    </td>
+                    <td>{{actual|number_format(2, '.', ',')}} {{app.user.balance.currency.value}}</td>
+                    <td>{{portfolio.createdAt|date('m/d/Y')}}</td>
+                </tr>
+            </tbody>
+        </table>
         <h2>Assets</h2>
-        <ul>
+        <ul class="portfolio-container__portfolio-details__asstes">
             {% if portfolio.assets|length > 0 %}
                 {% for asset in portfolio.assets %}
                     <li>
@@ -49,6 +64,12 @@
                             <li>Asset name: {{asset.name}}</li>
                             <li>Asset amount: {{asset.amount}}</li>
                             <li>Asset bought price: {{asset.boughtPrice|number_format(2, '.', ',')}} <b>{{app.user.balance.currency.value}}</b></li>
+                            <li>Asset actual price: 
+                                {% for newAsset in newData %}
+                                    {% if newAsset.name == asset.name %}
+                                        {{newAsset.price|number_format(2, '.', ',')}} <b>{{app.user.balance.currency.value}}</b>
+                                    {% endif %}
+                                {% endfor %}
                             <li>Asset bought date: {{asset.boughtAt|date('m/d/Y')}}</li>
                         </ul>
                     </li>

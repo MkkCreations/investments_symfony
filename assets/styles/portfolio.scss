@@ -39,4 +39,46 @@
             }
         }
     }
+    &__portfolio-details {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(244, 249, 253);
+        padding: 10px;
+        border-radius: 5px;
+        & > h2 {
+            margin: 20px 0;
+        }
+        &__details {
+            width: 80%;
+            & > thead {
+                & > tr {
+                    & > th {
+                        padding: 8px;
+                        border: 1px solid rgb(0, 0, 0);
+                        text-align: center;
+                        border-radius: 2px;
+                    }
+                }
+            }
+            & > tbody {
+                & > tr {
+                    & > td {
+                        padding: 8px;
+                        border: 1px solid rgb(0, 0, 0);
+                        text-align: center;
+                        border-radius: 2px;
+                        color: rgb(35, 102, 235);
+                    }
+                }
+            }
+        }
+        &__assets {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 10px;
+            
+        }
+    }
 }

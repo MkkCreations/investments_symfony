@@ -23,7 +23,7 @@
     <div id="modalBalance" class="balance-container__modal">
         <div class="balance-container__modal-container">
             <div id="closeModalBalance" class="balance-container__modal-container__close">X</div>
-            <form class="balance-container__modal-container__form" method="post" >
+            <form class="balance-container__modal-container__form" action="{{ path('app_balance_add') }}" method="post" >
                 <div class="form-group">
                     <input type="number" class="form-control" name="amount" id="amount" placeholder="Enter amount" required min="100">
                     <p>Minimum amount is 100</p>
@@ -47,7 +47,7 @@
         {% for balance in balances %}
             <tr>
                 <td>{{ balance.addedAt|date('d-m-Y H:i') }}</td>
-                <td>{{ balance.amount }}</td>
+                <td style="color: {{balance.type == "buy" ? "green" : "red"}}" >{{ balance.amount|number_format(2, '.', ',') }}</td>
                 <td>{{ app.user.balance.currency.value }}</td>
             </tr>
         {% endfor %}

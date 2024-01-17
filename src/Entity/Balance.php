@@ -20,7 +20,7 @@ class Balance
     private User $user;
 
     #[ORM\Column]
-    private int $amount = 0;
+    private float $amount = 0;
 
     #[ORM\Column]
     private Currency $currency;
@@ -52,12 +52,12 @@ class Balance
         return $this;
     }
 
-    public function getAmount(): int
+    public function getAmount(): float
     {
         return $this->amount;
     }
 
-    public function setAmount(int $amount): static
+    public function setAmount(float $amount): static
     {
         $this->amount = $amount;
 

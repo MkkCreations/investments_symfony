@@ -20,10 +20,10 @@ class Asset
     private ?\DateTimeImmutable $bought_at = null;
 
     #[ORM\Column]
-    private ?int $amount = null;
+    private ?float $amount = null;
 
     #[ORM\Column]
-    private ?int $bought_price = null;
+    private ?float $bought_price = null;
 
     #[ORM\ManyToOne(targetEntity: Portfolio::class, inversedBy: 'assets')]
     private ?Portfolio $portfolio = null;
@@ -57,24 +57,24 @@ class Asset
         return $this;
     }
 
-    public function getAmount(): ?int
+    public function getAmount(): ?float
     {
         return $this->amount;
     }
 
-    public function setAmount(int $amount): static
+    public function setAmount(float $amount): static
     {
         $this->amount = $amount;
 
         return $this;
     }
 
-    public function getBoughtPrice(): ?int
+    public function getBoughtPrice(): ?float
     {
         return $this->bought_price;
     }
 
-    public function setBoughtPrice(int $bought_price): static
+    public function setBoughtPrice(float $bought_price): static
     {
         $this->bought_price = $bought_price;
 

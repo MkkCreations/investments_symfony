@@ -29,14 +29,33 @@
             <li>Portfolio name: {{portfolio.name}}</li>
             <li>Portfolio amount: 
                 {% if portfolio.assets|length > 0 %}
+                    {% set total = 0 %}
                     {% for asset in portfolio.assets %}
-                        {{asset.amount * asset.boughtPrice|number_format(2, '.', ',')}} <b>{{app.user.balance.currency.value}}</b>
+                        {% set total = total + asset.amount * asset.boughtPrice %}
                     {% endfor %}
+                    {{total|number_format(2, '.', ',')}} <b>{{app.user.balance.currency.value}}</b>
                 {% else %}
                     0.00 €
                 {% endif %}
             </li>
             <li>Portfolio creation date: {{portfolio.createdAt|date('m/d/Y')}}</li>
+        </ul>
+        <h2>Assets</h2>
+        <ul>
+            {% if portfolio.assets|length > 0 %}
+                {% for asset in portfolio.assets %}
+                    <li>
+                        <ul>
+                            <li>Asset name: {{asset.name}}</li>
+                            <li>Asset amount: {{asset.amount}}</li>
+                            <li>Asset bought price: {{asset.boughtPrice|number_format(2, '.', ',')}} <b>{{app.user.balance.currency.value}}</b></li>
+                            <li>Asset bought date: {{asset.boughtAt|date('m/d/Y')}}</li>
+                        </ul>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <li>No assets</li>
+            {% endif %}
         </ul>
     </div>
 

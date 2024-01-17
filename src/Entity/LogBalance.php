@@ -21,13 +21,17 @@ class LogBalance
     private ?Balance $balance = null;
 
     #[ORM\Column]
-    private ?int $amount = null;
+    private ?float $amount = null;
 
-    public function __construct(Balance $balance, int $amount)
+    #[ORM\Column(options: ['buy', 'sell'])]
+    private string $type;
+
+    public function __construct(Balance $balance, int $amount, string $type)
     {
         $this->balance = $balance;
         $this->amount = $amount;
         $this->addedAt = new \DateTimeImmutable();
+        $this->type = $type;
     }
 
     public function getId(): ?int
@@ -59,14 +63,26 @@ class LogBalance
         return $this;
     }
 
-    public function getAmount(): ?int
+    public function getAmount(): ?float
     {
         return $this->amount;
     }
 
-    public function setAmount(int $amount): static
+    public function setAmount(float $amount): static
     {
         $this->amount = $amount;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): static
+    {
+        $this->type = $type;
 
         return $this;
     }

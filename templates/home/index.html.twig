@@ -13,32 +13,12 @@
     </ul>
 
     <div class="home-container__stocks">
-        {% if data['Information'] %}
-            <center>
-                <h2>No data to display</h2>
-                <br>
-                <p><b>Reason:</b> {{ data['Information'] }}</p>
-                <br>
-                <h4>API used: <a href="https://www.alphavantage.co/">Alpha Vantage</a></h4>
-            </center>
-        {% else %}
-            {% for stock in  data['top_gainers'] %}
-                <div class="home-container__stocks__stock">
-                    <h4>{{ stock['ticker'] }}</h4>
-                    <p>Price: {{ stock['price'] }} {{ app.user.balance.currency.value }}</p>
-                    <p>Change: {{ stock['change_percentage'] }} %</p>
-                    <p>Volume: {{ stock['volume'] }}</p>
-                </div>
-            {% endfor %}
-            {% for stock in  data['top_losers'] %}
-                <div class="home-container__stocks__stock">
-                    <h4>{{ stock['ticker'] }}</h4>
-                    <p>Price: {{ stock['price'] }} {{ app.user.balance.currency.value }}</p>
-                    <p>Change: {{ stock['change_percentage'] }} %</p>
-                    <p>Volume: {{ stock['volume'] }}</p>
-                </div>
-            {% endfor %} 
-        {% endif %}
+        {% for stock in  data %}
+            <a href="{{ path('app_home_id', {id: stock.id}) }}" class="home-container__stocks__stock">
+                <h4 class="home-container__stocks__stock-title">{{ stock['name'] }}</h4>
+                <p class="home-container__stocks__stock-text">{{ stock['price'] }} <i>{{ app.user.balance.currency.value }}</i></p>
+            </a>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}

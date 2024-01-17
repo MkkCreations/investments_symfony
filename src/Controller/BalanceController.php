@@ -13,26 +13,27 @@ use Symfony\Component\Routing\Annotation\Route;
 class BalanceController extends AbstractController
 {
     #[Route('/balance', name: 'app_balance')]
-    public function index(Request $request, EntityManagerInterface $entityManager): Response
+    public function index(): Response
     {
-
-        if ($request->isMethod('POST')) {
-            $amount = $request->request->get('amount');
-            $balance =$this->getUser()->getBalance();
-            $balance->setAmount($balance->getAmount() + $amount);
-
-            $balanceLog = new LogBalance($balance, $amount);
-
-            $entityManager->persist($balanceLog);
-            $entityManager->persist($balance);
-
-            $entityManager->flush();
-            return $this->redirectToRoute('app_balance');
-        }
-
         $balances = $this->getUser()->getBalance()->getLogBalances()->toArray();
         return $this->render('balance/index.html.twig', [
             'balances' => $balances,
         ]);
+    }
+
+    #[Route('/balance/add', name: 'app_balance_add')]
+    public function add(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $amount = $request->request->get('amount');
+        $balance = $this->getUser()->getBalance();
+        $balance->setAmount($balance->getAmount() + $amount);
+
+        $balanceLog = new LogBalance($balance, $amount, "buy");
+
+        $entityManager->persist($balanceLog);
+        $entityManager->persist($balance);
+
+        $entityManager->flush();
+        return $this->redirectToRoute('app_balance');
     }
 }

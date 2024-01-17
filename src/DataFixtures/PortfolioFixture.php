@@ -17,7 +17,6 @@ class PortfolioFixture extends Fixture
         $portfolio->setName('Portfolio_1');
         $portfolio->setCreatedAt(new \DateTimeImmutable());
         $portfolio->setStatus(Status::ACTIVE);
-        $portfolio->addAsset($this->getReference(AssetFixture::ASSET_REFERENCE));
 
         $manager->persist($portfolio);
 

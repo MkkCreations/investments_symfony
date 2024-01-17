@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{stock['name']}}{% endblock %}
+
+{% block body %}
+<div class="home-container">
+    <h1>Stock - ({{stock['name']}})</h1>
+
+    <ul class="home-container__nav">
+        <li>
+            <a href="{{ path('app_dashboard') }}">Back to Dashboard</a>
+            <text> | </text>
+            <a href="{{ path('app_home') }}">Back to Home</a>
+        </li>
+    </ul>
+
+    <div class="home-container__stock-details">
+        <div class="home-container__stock-details__title">
+            <h2>{{stock['name']}}</h2>
+        </div>
+        <p class="home-container__stock-details__price">Price: {{stock['price']}}</p>
+        <div class="home-container__stock-details__error">
+            <p>{{error}}</p>
+        </div>
+        <form class="home-container__stock-details__form" method="post">
+            <div class="home-container__stock-details__form-item">
+                <input type="number" name="amount" id="amount" placeholder="Amount" required>
+            </div>
+            <div class="home-container__stock-details__form-item">
+                <select name="portfolio" id="portfolio" required>
+                    <option value="" disabled selected>Select a portfolio</option>
+                    {% for portfolio in portfolios %}
+                        <option value="{{ portfolio.id }}">{{ portfolio.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button class="home-container__stock-details__form-item-button" type="submit">Buy</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -41,6 +41,13 @@
             <div class="portfolios-container__list__item">
                 <h5 class="portfolios-container__list__item-title">{{ portfolio.name }}</h5>
                 <p class="portfolios-container__list__item-text">{{ portfolio.createdAt|date('d-m-Y H:i') }}</p>
+                <p class="portfolios-container__list__item-text">
+                    {% set total = 0 %}
+                    {% for asset in portfolio.assets %}
+                        {% set total = total + asset.amount * asset.boughtPrice %}
+                    {% endfor %}
+                    Total: <b>{{ total }}</b> €
+                </p>
                 <div class="portfolios-container__list__item-btns">
                     <a href="{{ path('app_portfolio_show', {id: portfolio.id}) }}" class="portfolios-container__list__item-btn-primary">Show</a>
                     <button name="deletePortfolio" for="portfolio{{portfolio.id}}" class="portfolios-container__list__item-btn-secondary">Delete</button>

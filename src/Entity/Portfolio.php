@@ -25,7 +25,7 @@ class Portfolio
     #[ORM\Column(length: 64)]
     private Status $status = Status::ACTIVE;
 
-    #[ORM\OneToMany(targetEntity: Asset::class, mappedBy: 'portfolio')]
+    #[ORM\OneToMany(targetEntity: Asset::class, mappedBy: 'portfolio', cascade: ['remove'])]
     private ?Collection $assets;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'portfolios')]

@@ -75,10 +75,50 @@
             }
         }
         &__assets {
+            width: 100%;
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fill, minmax(220px, auto));
             grid-gap: 10px;
             
+            &__asset {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                padding: 10px;
+                border: 3px solid rgb(214, 213, 213);
+                border-radius: 8px;
+                background-color: #ebebeb;
+                cursor: pointer;
+
+                &-title {
+                    flex: 3;
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-weight: bold;
+                    background-color: aliceblue;
+                    border-radius: 5px;
+                    padding: 4px;
+                    text-align: center;
+                }
+                &-text {
+                    flex: 3;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    color: rgb(149, 149, 149);
+                    margin-left: 5px;
+                    & > b {
+                        color: rgb(27, 86, 129);
+                        margin: 0 5px;
+                    }
+                }
+                &:hover {
+                    background-color: rgb(255, 255, 255);
+                }
+
+            }
         }
     }
 }

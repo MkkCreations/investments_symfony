@@ -1,0 +1,20 @@
+.dashboard-container {
+    width: 90%;
+    & > h1 {
+        text-align: center;
+        margin: 20px 0;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(244, 249, 253);
+        padding: 10px;
+        border-radius: 5px;
+        & > h2 {
+            margin: 20px 0;
+        }
+    }
+}

@@ -25,8 +25,17 @@ class Asset
     #[ORM\Column]
     private ?float $bought_price = null;
 
-    #[ORM\ManyToOne(targetEntity: Portfolio::class, inversedBy: 'assets')]
+    #[ORM\ManyToOne(targetEntity: Portfolio::class, inversedBy: 'assets', cascade: ['remove'])]
     private ?Portfolio $portfolio = null;
+
+    #[ORM\Column(type: 'boolean')]
+    private bool $active = true;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $sold_price;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $sold_at;
 
     public function getId(): ?int
     {
@@ -89,6 +98,42 @@ class Asset
     public function setPortfolio(?Portfolio $portfolio): static
     {
         $this->portfolio = $portfolio;
+
+        return $this;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): static
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    public function getSoldPrice(): ?float
+    {
+        return $this->sold_price;
+    }
+
+    public function setSoldPrice(float $sold_price): static
+    {
+        $this->sold_price = $sold_price;
+
+        return $this;
+    }
+
+    public function getSoldAt(): ?\DateTimeImmutable
+    {
+        return $this->sold_at;
+    }
+
+    public function setSoldAt(\DateTimeImmutable $sold_at): static
+    {
+        $this->sold_at = $sold_at;
 
         return $this;
     }

@@ -44,10 +44,10 @@
         </tr>
         </thead>
         <tbody>
-        {% for balance in balances %}
+        {% for log in balanceLogs %}
             <tr>
-                <td>{{ balance.addedAt|date('d-m-Y H:i') }}</td>
-                <td style="color: {{balance.type == "buy" ? "green" : "red"}}" >{{ balance.amount|number_format(2, '.', ',') }}</td>
+                <td>{{ log.addedAt|date('d-m-Y H:i') }}</td>
+                <td style="color: {{log.type == "add" ? "green" : "red"}}" >{{ log.amount|number_format(2, '.', ',') }}</td>
                 <td>{{ app.user.balance.currency.value }}</td>
             </tr>
         {% endfor %}

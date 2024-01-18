@@ -206,7 +206,7 @@ class HomeController extends AbstractController
                 $amount = $stock['price'] * $request->request->get('amount');
                 $balance->setAmount($balance->getAmount() - $amount);
         
-                $balanceLog = new LogBalance($balance, $amount, "sell");
+                $balanceLog = new LogBalance($balance, $amount, "remove");
         
                 $entityManager->persist($balanceLog);
                 $entityManager->persist($balance);

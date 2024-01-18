@@ -23,10 +23,10 @@ class LogBalance
     #[ORM\Column]
     private ?float $amount = null;
 
-    #[ORM\Column(options: ['buy', 'sell'])]
+    #[ORM\Column(options: ['add', 'remove'])]
     private string $type;
 
-    public function __construct(Balance $balance, int $amount, string $type)
+    public function __construct(Balance $balance, float $amount, string $type)
     {
         $this->balance = $balance;
         $this->amount = $amount;

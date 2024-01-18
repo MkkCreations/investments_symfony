@@ -15,9 +15,9 @@ class BalanceController extends AbstractController
     #[Route('/balance', name: 'app_balance')]
     public function index(): Response
     {
-        $balances = $this->getUser()->getBalance()->getLogBalances()->toArray();
+        $balanceLogs = $this->getUser()->getBalance()->getLogBalances()->toArray();
         return $this->render('balance/index.html.twig', [
-            'balances' => $balances,
+            'balanceLogs' => $balanceLogs,
         ]);
     }
 
@@ -28,7 +28,7 @@ class BalanceController extends AbstractController
         $balance = $this->getUser()->getBalance();
         $balance->setAmount($balance->getAmount() + $amount);
 
-        $balanceLog = new LogBalance($balance, $amount, "buy");
+        $balanceLog = new LogBalance($balance, $amount, "add");
 
         $entityManager->persist($balanceLog);
         $entityManager->persist($balance);

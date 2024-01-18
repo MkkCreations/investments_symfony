@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Asset;
+use App\Entity\LogBalance;
 use App\Entity\Portfolio;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -39,12 +41,8 @@ class PortfolioController extends AbstractController
         $newData = $homeController->getStockData();
 
 
-        $total = 0;
-        $actual = 0;
-
-        $total = array_sum(array_map(fn ($asset) => $total += $asset->getAmount() * $asset->getBoughtPrice(), $portfolio->getAssets()->toArray()));
-
-        $actual = array_sum(array_map(fn ($asset) => $actual += $asset->getAmount() * array_values(array_filter($newData, fn ($stock) => $stock['name'] == $asset->getName()))[0]['price'], $portfolio->getAssets()->toArray()));
+        $total = $this->getTotalValue($portfolio);
+        $actual = $this->getActualValue($portfolio, $newData);
 
 
         return $this->render('portfolio/portfolio.html.twig', [
@@ -60,8 +58,60 @@ class PortfolioController extends AbstractController
     {
         $id = $req->get('id');
         $portfolio = $em->getRepository(Portfolio::class)->find($id);
+        $balance = $this->getUser()->getBalance();
+        foreach ($portfolio->getAssets() as $asset) {
+            $newAsset = $this->sellAsset($portfolio, $asset, $em);
+            $balance->setAmount($balance->getAmount() + $asset->getAmount() * $newAsset->getSoldPrice());
+            $balanceLog = new LogBalance($balance, $asset->getAmount() * $newAsset->getSoldPrice(), "add");
+            $em->persist($balanceLog);
+        }
+        $em->persist($balance);
         $em->remove($portfolio);
         $em->flush();
         return $this->redirectToRoute('app_portfolio');
+    }
+
+    public function getTotalValue($portfolio): float
+    {
+        $total = 0;
+        foreach ($portfolio->getAssets() as $asset) {
+            $total += $asset->getAmount() * $asset->getBoughtPrice();
+        }
+        return $total;
+    }
+
+    public function getActualValue(Portfolio $portfolio, array $newData): float
+    {
+        $actual = 0;
+        foreach ($portfolio->getAssets() as $asset) {
+            foreach ($newData as $stock) {
+                if ($stock['name'] == $asset->getName()) {
+                    if ($asset->isActive()) $actual += $asset->getAmount() * $stock['price'];
+                    else $actual += $asset->getAmount() * $asset->getSoldPrice();
+                }
+            }
+        }
+        return $actual;
+    }
+
+    public function findAssetNewData($asset, $newData): ?array
+    {
+        foreach ($newData as $stock) {
+            if ($stock['name'] == $asset->getName()) {
+                return $stock;
+            }
+        }
+        return null;
+    }
+
+    public function sellAsset($portfolio, $asset, $em): Asset
+    {
+        $homeController = new HomeController();
+        $newData = $homeController->getStockData();
+        $asset->setSoldPrice($this->findAssetNewData($asset, $newData)['price']);
+        $asset->setActive(false);
+        $em->persist($asset);
+        $em->flush();
+        return $asset;
     }
 }

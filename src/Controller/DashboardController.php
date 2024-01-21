@@ -15,8 +15,13 @@ class DashboardController extends AbstractController
     {
         $this->denyAccessUnlessGranted(Role::ROLE_USER->value);
 
+        $homeController = new HomeController();
+        $newData = $homeController->getStockData();
+
+        $newData = $homeController->getStockData();
+
         return $this->render('dashboard/index.html.twig', [
-            'controller_name' => 'Dashboard',
+            'newData' => $newData
         ]);
     }
 }

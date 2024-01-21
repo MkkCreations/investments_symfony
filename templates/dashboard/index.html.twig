@@ -8,47 +8,66 @@
 
     <div class="dashboard-container__content">
 
-      <p> This is the dashboard page </p>
+      <h2>Find all your portfolios stadistics here</h2>
 
-      {% if app.user %}
-          {% for portfolio in app.user.portfolios %}
-              <p> {{ portfolio.name }} </p>
-          {% endfor %}
-      {% endif %}
+      <div class="dashboard-container__content__text">
+        <p>In this page you will find all the information about your portfolios, you can see the evolution of your investments, the total amount of money invested, the total amount of money earned and the total amount of money lost.</p>
+        <p>Also you can see the evolution of your investments in a chart.</p>
+      </div>
 
-      <div
-            className="svg-pi-wrapper"
-            style="width: 150px; height: 150px;"
-          >
-            <svg
-              className="svg-pi" 
-              style="width: 150px; height: 150px;"
-            >
-              <circle
-                className="svg-pi-track"
-                cx="50"
-                cy="50"
-                fill="transparent"
-                r="50"
-                stroke="#44444444"
-                strokeWidth="10"
-              />
-              <circle
-                className="svg-pi-indicator svg-pi-indicator--spinner"
-                style="animationDuration: 1000;"
-                cx="50"
-                cy="50"
-                fill="transparent"
-                r="25"
-                stroke="#07c"
-                strokeWidth="10"
-                strokeDasharray="150"
-                strokeDashoffset="60"
-                strokeLinecap="round"
-              />
-            </svg>
-    
-          </div>
+      <div class="dashboard-container__content__chart">
+        <canvas id="myChart" width="300" height="200"></canvas>
+      </div>
+      <p>Total amount invested: </p>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <script>
+      var ctx = document.getElementById('myChart').getContext('2d');
+      let portfolios = [
+        {% for portfolio in app.user.portfolios %}
+          {
+            name: "{{ portfolio.name }}",
+            totalAmountInvested: {% for asset in portfolio.assets %} ({{ asset.amount }} * {{ asset.getBoughtPrice() }}) + {% endfor %} 0,
+            totalAmountEarned: {% for asset in portfolio.assets %} {% for newprice in newData %} {% if newprice.name == asset.name %} ({{ newprice.price }} * {{ asset.amount }} - (({{ asset.amount }} * {{ asset.getBoughtPrice() }}) ) {% endif %} {% endfor %}) + {% endfor %} 0,
+          },
+        {% endfor %}
+      ];
+  
+      let portNames = [];
+      let portEarned = [];
+      for (let i = 0; i < portfolios.length; i++) {
+        portNames.push(portfolios[i].name);
+        portEarned.push(portfolios[i].totalAmountEarned);
+      }
+      var myChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+              labels: portNames,
+              datasets: [{
+                  label: 'Evolution of your investments',
+                  data: portEarned,
+                  backgroundColor: [
+                      'rgba(255, 99, 132, 0.2)',
+                  ],
+                  borderColor: [
+                      'rgba(255, 99, 132, 1)',
+                  ],
+                  borderWidth: 1
+              }]
+          },
+          options: {
+              scales: {
+                  yAxes: [{
+                      ticks: {
+                          beginAtZero: true,
+                          callback: function(value, index, values) {
+                            return '$' + value;
+                          }
+                      }
+                  }]
+              }
+          }
+      });
+    </script>
 </div>
 {% endblock %}

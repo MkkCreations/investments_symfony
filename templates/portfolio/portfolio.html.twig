@@ -71,7 +71,8 @@
             {% if portfolio.assets|length > 0 %}
                 {% for asset in  portfolio.assets %}
                     {% if asset.isActive() %}
-                        <a href="{{ path('app_home_id', {id: asset.id}) }}" class="portfolio-container__portfolio-details__assets__asset">
+                        <a href="{{ path('app_home_id', {id: (newData|filter(item => item.name == asset.name)|first).id}) }}"
+                        class="portfolio-container__portfolio-details__assets__asset">
                             <h4 class="portfolio-container__portfolio-details__assets__asset-title">{{ asset.name }}</h4>
                             <p class="portfolio-container__portfolio-details__assets__asset-text">Amount: <b>{{ asset.amount }}</b></p>
                             <p class="portfolio-container__portfolio-details__assets__asset-text">Bought price: <b>{{asset.boughtPrice|number_format(2, '.', ',')}} {{ app.user.balance.currency.value }}</b></p>

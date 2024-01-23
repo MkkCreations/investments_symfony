@@ -16,13 +16,12 @@
     <body>
         <nav class="nav-container">
             <div class="nav-container__logo-name">
-                <a class="" href="#">
+                <a class="" href="{{ path('app_home') }}">
                     <img src="https://icon-library.com/images/investment-icon-png/investment-icon-png-5.jpg" alt="" width="30" class="">
                     <p>Investments Manager</p>
                 </a>
             </div>
-            <div class="nav-container__balance">
-                <a href="#">Balance: 
+                <a href="{{ path('app_balance') }}">Balance: 
                 {% if app.user.balance %}
                     <b><p style="color: {{app.user.balance.amount > 0 ? "mediumseagreen" : "#f45a48"}};">
                         {{app.user.balance.amount}}

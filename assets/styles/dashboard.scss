@@ -11,14 +11,43 @@
         justify-content: center;
         align-items: center;
         background-color: rgb(244, 249, 253);
-        padding: 10px;
+        padding: 4% 6%;
         border-radius: 5px;
         & > h2 {
             margin: 20px 0;
         }
-
+        &__text {
+            width: 90%;
+            margin: 20px 0;
+            text-align: justify;
+        }
+        &__totals {
+            display: flex;
+            justify-content: space-between;
+            width: 90%;
+            margin: 20px 0;
+            & > h3 {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 30%;
+                padding: 10px;
+                border-radius: 5px;
+                background-color: white;
+                box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+                text-align: center;
+                & > b {
+                    margin: 10px 0;
+                    color: rgb(0, 0, 0);
+                }
+            }
+        }
         &__chart {
-            width: 80%;
+            width: 90%;
+            background-color: white;
+            box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+            border-radius: 5px;
         }
     }
 }

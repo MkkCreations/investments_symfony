@@ -1,0 +1,31 @@
+welcome: Bienvenido
+login: Iniciar sesión
+register: Registrarse
+logout: Cerrar sesión
+home: Inicio
+portfolios: Carteras
+portfolio: Cartera
+balance: Saldo
+portfolios_list: Lista de carteras
+back_to: Volver a
+assets: Activos
+asset: Activo
+details: Detalles
+name: Nombre
+total_amount: Monto total
+change: Cambio
+actual_value: Valor actual
+actual_price: Precio actual
+amount: Cantidad
+bought_price: Precio de compra
+bought_date: Fecha de compra
+
+dashboard:
+  title: Tablero
+  subtitle: Encuentra todas las estadísticas de tus carteras aquí
+  description: |
+    En esta página encontrarás toda la información sobre tus carteras, puedes ver la evolución de tus inversiones, el monto total de dinero invertido, el monto total de dinero ganado y el monto total de dinero perdido.
+    También puedes ver la evolución de tus inversiones en un gráfico.
+  total_invested: Monto total invertido
+  total_earned: Monto total ganado
+  evolution: Evolución de tus inversiones

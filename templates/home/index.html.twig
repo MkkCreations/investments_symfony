@@ -4,11 +4,11 @@
 
 {% block body %}
 <div class="home-container">
-    <h1>Home</h1>
+    <h1>{{ 'home' | trans }}</h1>
 
     <ul class="home-container__nav">
         <li>
-            <a href="{{ path('app_dashboard') }}">Back to Dashboard</a>
+            <a href="{{ path('app_dashboard') }}">{{ 'back_to' | trans }} {{ 'dashboard.title' | trans }}</a>
         </li>
     </ul>
 

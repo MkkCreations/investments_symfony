@@ -10,11 +10,11 @@
 
 {% block body %}
 <div class="portfolios-container">
-    <h1>Portfolios</h1>
+    <h1>{{ 'portfolios' | trans }}</h1>
 
     <ul class="portfolios-container__nav">
         <li>
-            <a href="{{ path('app_dashboard') }}">Back to Dashboard</a>
+            <a href="{{ path('app_dashboard') }}">{{ 'back_to' | trans }} {{ 'dashboard.title' | trans }}</a>
         </li>
         <li>
             <button id="addPortfolio">+</button>
@@ -36,7 +36,7 @@
     </div>
 
     <div class="portfolios-container__list">
-        <h2>Portfolios list</h2>
+        <h2>{{ 'portfolios_list' | trans }}</h2>
         {% for portfolio in app.user.portfolios %}
             <div class="portfolios-container__list__item">
                 <h5 class="portfolios-container__list__item-title">{{ portfolio.name }}</h5>

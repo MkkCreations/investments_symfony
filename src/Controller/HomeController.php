@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Asset;
 use App\Entity\LogBalance;
+use App\Form\AssetFormType;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -191,19 +193,28 @@ class HomeController extends AbstractController
     #[Route('/home/{id}', name: 'app_home_id')]
     public function buyStock(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $asset = new Asset();
+        $form = $this->createForm(AssetFormType::class, $asset, [
+            'data_class' => null,
+            'data' => [
+                'portfolios' => $this->getUser()->getPortfolios()
+            ],
+        ]);
+        $form->handleRequest($request);
+
         $error = null;
-        $stock = array_values(array_filter($this->data, fn ($stock) => $stock['id'] == $request->attributes->get('id')))[0];
-        if ($request->isMethod('POST')) {
-            if ($this->getUser()->getBalance()->getAmount() >= $stock['price'] * $request->request->get('amount')) {
-                $asset = new Asset();
+        $stock = array_values(array_filter($this->getStockData(), fn ($stock) => $stock['id'] == $request->attributes->get('id')))[0];
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($this->getUser()->getBalance()->getAmount() >= $stock['price'] * $form->get('amount')->getData()) {
                 $asset->setName($stock['name']);
                 $asset->setBoughtPrice($stock['price']);
+                $asset->setAmount($form->get('amount')->getData());
+                $asset->setPortfolio($form->get('portfolio')->getData());
                 $asset->setBoughtAt(new \DateTimeImmutable());
-                $asset->setAmount($request->request->get('amount'));
-                $asset->setPortfolio(array_values(array_filter($this->getUser()->getPortfolios()->toArray(), fn ($portfolio) => $portfolio->getId() == $request->request->get('portfolio')))[0]);
 
                 $balance = $this->getUser()->getBalance();
-                $amount = $stock['price'] * $request->request->get('amount');
+                $amount = $stock['price'] * $form->get('amount')->getData();
                 $balance->setAmount($balance->getAmount() - $amount);
         
                 $balanceLog = new LogBalance($balance, $amount, "remove");
@@ -222,6 +233,7 @@ class HomeController extends AbstractController
             'stock' => $stock,
             'portfolios' => $this->getUser()->getPortfolios()->toArray(),
             'error' => $error,
+            'form' => $form->createView(),
         ]);
     }
 }

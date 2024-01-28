@@ -4,15 +4,13 @@
 
 {% block body %}
 <div class="dashboard-container">
-    <h1>Dashboard</h1>
+    <h1>{{ 'dashboard.title' | trans }}</h1>
 
     <div class="dashboard-container__content">
-
-      <h2>Find all your portfolios stadistics here</h2>
+      <h2>{{ 'dashboard.subtitle' | trans }}</h2>
 
       <div class="dashboard-container__content__text">
-        <p>In this page you will find all the information about your portfolios, you can see the evolution of your investments, the total amount of money invested, the total amount of money earned and the total amount of money lost.</p>
-        <p>Also you can see the evolution of your investments in a chart.</p>
+        {{ 'dashboard.description' | trans }}
       </div>
       <div class="dashboard-container__content__totals">
         {% set totalAmountInvested = 0 %}
@@ -27,10 +25,10 @@
             {% endfor %}
           {% endfor %} 
         {% endfor %}
-        <h3>Total amount invested: 
+        <h3>{{ 'dashboard.total_invested' | trans }}:
           <b>{{ totalAmountInvested }}</b>
         </h3>
-        <h3>Total amount earned: 
+        <h3>{{ 'dashboard.total_earned' | trans }}:
           <b style="color: {{totalAmountEarned - totalAmountInvested > 0 ? "green" : "red" }}" >{{ (totalAmountEarned - totalAmountInvested)|number_format(2, '.', ',') }}</b>
         </h3>
       </div>
@@ -114,7 +112,7 @@
               },
               title: {
                 display: true,
-                text: 'Evolution of your investments',
+                text: "{{ 'dashboard.evolution' | trans }}",
                 fontSize: 20
               }
           }

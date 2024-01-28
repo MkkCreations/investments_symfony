@@ -1,0 +1,31 @@
+welcome: Welcome
+login: Login
+register: Register
+logout: Logout
+home: Home
+portfolios: Portfolios
+portfolio: Portfolio
+balance: Balance
+portfolios_list: Portfolios list
+back_to: Back to
+assets: Assets
+asset: Asset
+details: Details
+name: Name
+total_amount: Total amount
+change: Change
+actual_value: Actual value
+actual_price: Actual price
+amount: Amount
+bought_price: Bought price
+bought_date: Bought date
+
+dashboard:
+  title: Dashboard
+  subtitle: Find all your portfolios stadistics here
+  description: |
+    In this page you will find all the information about your portfolios, you can see the evolution of your investments, the total amount of money invested, the total amount of money earned and the total amount of money lost.
+    Also you can see the evolution of your investments in a chart.
+  total_invested: Total amount invested
+  total_earned: Total amount earned
+  evolution: Evolution of your investments

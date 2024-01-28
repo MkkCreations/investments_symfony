@@ -14,23 +14,23 @@
 
     <ul class="portfolio-container__nav">
         <li>
-            <a href="{{ path('app_dashboard') }}">Back to Dashboard</a>
+            <a href="{{ path('app_dashboard') }}">{{ 'back_to' | trans }} {{ 'dashboard.title' | trans }}</a>
             <text> | </text>
-            <a href="{{ path('app_portfolio') }}">Portfolios</a>
+            <a href="{{ path('app_portfolio') }}">{{ 'portfolios' | trans }}</a>
         </li>
     </ul>
 
     <div class="portfolio-container__portfolio-details">
-        <h2>Portfolio Details</h2>
+        <h2>{{ 'portfolio' | trans }} {{ 'details' | trans }}</h2>
         <table class="portfolio-container__portfolio-details__details">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Total amount</th>
-                    <th>Change</th>
-                    <th>Change %</th>
-                    <th>Actual value</th>
-                    <th>Creation date</th>
+                    <th>{{ 'name' | trans }}</th>
+                    <th>{{ 'total_amount' | trans }}</th>
+                    <th>{{ 'change' | trans }}</th>
+                    <th>{{ 'change' | trans }} %</th>
+                    <th>{{ 'actual_value' | trans }}</th>
+                    <th>{{ 'bought_date' | trans }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -66,7 +66,7 @@
                 </tr>
             </tbody>
         </table>
-        <h2>Assets</h2>
+        <h2>{{ 'assets' | trans }}</h2>
         <div class="portfolio-container__portfolio-details__assets">
             {% if portfolio.assets|length > 0 %}
                 {% for asset in  portfolio.assets %}
@@ -74,17 +74,17 @@
                         <a href="{{ path('app_home_id', {id: (newData|filter(item => item.name == asset.name)|first).id}) }}"
                         class="portfolio-container__portfolio-details__assets__asset">
                             <h4 class="portfolio-container__portfolio-details__assets__asset-title">{{ asset.name }}</h4>
-                            <p class="portfolio-container__portfolio-details__assets__asset-text">Amount: <b>{{ asset.amount }}</b></p>
-                            <p class="portfolio-container__portfolio-details__assets__asset-text">Bought price: <b>{{asset.boughtPrice|number_format(2, '.', ',')}} {{ app.user.balance.currency.value }}</b></p>
-                            <p class="portfolio-container__portfolio-details__assets__asset-text">Actual price: 
+                            <p class="portfolio-container__portfolio-details__assets__asset-text">{{ 'amount' | trans }}: <b>{{ asset.amount }}</b></p>
+                            <p class="portfolio-container__portfolio-details__assets__asset-text">{{ 'bought_price' | trans }}: <b>{{asset.boughtPrice|number_format(2, '.', ',')}} {{ app.user.balance.currency.value }}</b></p>
+                            <p class="portfolio-container__portfolio-details__assets__asset-text">{{ 'actual_price' | trans }}: 
                                 {% for newAsset in newData %}
                                     {% if newAsset.name == asset.name %}
                                         <b style="color: {{newAsset.price >= asset.boughtPrice ? "green" : "red"}};">{{newAsset.price|number_format(2, '.', ',')}} {{app.user.balance.currency.value}}</b>
                                     {% endif %}
                                 {% endfor %}
                             </p>
-                            <p class="portfolio-container__portfolio-details__assets__asset-text">Bought date: <b>{{asset.boughtAt|date('m/d/Y')}}</b></p>
-                            <p class="portfolio-container__portfolio-details__assets__asset-text">Actual value: <b>{{asset.amount * asset.boughtPrice|number_format(2, '.', ',')}} {{app.user.balance.currency.value}}</b></p>
+                            <p class="portfolio-container__portfolio-details__assets__asset-text">{{ 'bought_date' | trans }}: <b>{{asset.boughtAt|date('m/d/Y')}}</b></p>
+                            <p class="portfolio-container__portfolio-details__assets__asset-text">{{ 'actual_value' | trans }}: <b>{{asset.amount * asset.boughtPrice|number_format(2, '.', ',')}} {{app.user.balance.currency.value}}</b></p>
                         </a>
                     {% else %}
                         <div class="portfolio-container__portfolio-details__assets__asset">

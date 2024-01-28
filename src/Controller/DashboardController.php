@@ -20,8 +20,9 @@ class DashboardController extends AbstractController
 
         $newData = $homeController->getStockData();
 
+
         return $this->render('dashboard/index.html.twig', [
-            'newData' => $newData
+            'newData' => $newData,
         ]);
     }
 }

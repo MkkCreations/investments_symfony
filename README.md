@@ -52,7 +52,7 @@ The database is configured with the following environment variables:
 
 ```
     php bin/console doctrine:fixtures:load
-``````
+```
 
 ##
 
@@ -61,3 +61,12 @@ The database is configured with the following environment variables:
 <code>
     docker compose down
 </code>
+
+## Run the project
+
+### To run the project, run the following command:
+
+```bash
+    npm run dev-server
+    symfony serve:start
+```

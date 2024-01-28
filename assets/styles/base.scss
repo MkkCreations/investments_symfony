@@ -117,8 +117,23 @@
                 color: rgb(215, 215, 215);
             }
         }
-
-
+        &__languages {
+            display: flex;
+            width: 100%;
+            justify-content: space-evenly;
+            margin: 10px 0;
+            &__item {
+                color: aliceblue;
+                background-color: rgb(68, 67, 67);
+                padding: 8px;
+                border-radius: 20px;
+                font-size: 0.8em;
+                cursor: pointer;
+                &:hover {
+                    background-color: rgb(78, 79, 79);
+                }
+            }
+        }
         &__logout {
             flex: 1;
             width: 100%;

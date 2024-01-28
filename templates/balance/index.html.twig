@@ -9,11 +9,11 @@
 
 {% block body %}
 <div class="balance-container">
-    <h1>Balance</h1>
+    <h1>{{ 'balance' | trans }}</h1>
 
     <ul class="balance-container__nav">
         <li>
-            <a href="{{ path('app_dashboard') }}">Back to Dashboard</a>
+            <a href="{{ path('app_dashboard') }}">{{ 'back_to' | trans }} {{ 'dashboard' | trans }}</a>
         </li>
         <li>
             <button id="addBalance">+</button>
@@ -23,15 +23,11 @@
     <div id="modalBalance" class="balance-container__modal">
         <div class="balance-container__modal-container">
             <div id="closeModalBalance" class="balance-container__modal-container__close">X</div>
-            <form class="balance-container__modal-container__form" action="{{ path('app_balance_add') }}" method="post" >
-                <div class="form-group">
-                    <input type="number" class="form-control" name="amount" id="amount" placeholder="Enter amount" required min="100">
-                    <p>Minimum amount is 100</p>
-                </div>
-                <div class="balance-container__modal-container__btns">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-            </form>
+            {{ form_start(form, {'attr': {'class': 'balance-container__modal-container__form'}}) }}
+            <p>Minimum amount is 100</p>
+            {{ form_row(form.amount) }}
+            {{ form_row(form.submit) }}
+            {{ form_end(form) }}
         </div>
     </div>
 

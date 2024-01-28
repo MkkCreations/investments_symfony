@@ -1,0 +1,31 @@
+welcome: Bienvenue
+login: Connexion
+register: Inscription
+logout: Déconnexion
+home: Accueil
+portfolios: Portefeuilles
+balance: Solde
+portfolio: Portefeuille
+portfolios_list: Liste des portefeuilles
+back_to: Retour au
+assets: Actifs
+asset: Actif
+details: Détails
+name: Nom
+total_amount: Montant total
+change: Changement
+actual_value: Valeur actuelle
+actual_price: Prix actuel
+amount: Quantité
+bought_price: Prix d'achat
+bought_date: Date d'achat
+
+dashboard:
+  title: Tableau de bord
+  subtitle: Retrouvez toutes les statistiques de vos portefeuilles ici
+  description: |
+    Sur cette page, vous trouverez toutes les informations sur vos portefeuilles, vous pouvez voir l'évolution de vos investissements, le montant total d'argent investi, le montant total d'argent gagné et le montant total d'argent perdu.
+    Vous pouvez également voir l'évolution de vos investissements dans un graphique.
+  total_invested: Montant total investi
+  total_earned: Montant total gagné
+  evolution: Evolution de vos investissements
